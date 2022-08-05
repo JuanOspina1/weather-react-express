@@ -31,11 +31,11 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.get("/weather", (req, res) => {
+app.get("/weather/", (req, res) => {
   console.log(req);
 
   const location = req.query.location;
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${process.env.REACT_APP_WEATHER_API}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=imperial&appid=${process.env.REACT_APP_WEATHER_API}/`;
 
   axios
     .get(url)

@@ -22,7 +22,7 @@ function App() {
     if (event.key === "Enter") {
       const options = {
         method: "GET",
-        url: `/weather`,
+        url: `/weather/`,
         params: { location: location },
       };
 
