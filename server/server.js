@@ -9,13 +9,17 @@ require("dotenv").config();
 
 const app = express();
 
+app.use(cors());
 // V1 Solution
 // app.use(express.static(publicPath));
 
 // V2 Solution
-app.use(express.static(path.join(__dirname, "build")));
-
-app.use(cors());
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 
 // Not sure if the below is needed for deployment - need further research on the below
 // app.get("*", (req, res) => {
