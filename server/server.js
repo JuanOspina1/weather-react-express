@@ -3,12 +3,17 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const publicPath = path.join(__dirname, "..", "public");
+// V1 Solution
+// const publicPath = path.join(__dirname, "..", "public");
 require("dotenv").config();
 
 const app = express();
 
-app.use(express.static(publicPath));
+// V1 Solution
+// app.use(express.static(publicPath));
+
+// V2 Solution
+app.use(express.static(path.join(__dirname, "build")));
 
 app.use(cors());
 
@@ -19,7 +24,7 @@ app.use(cors());
 
 // SYNTAX: METHOD => CALL WITH REQUEST & RESPONSE
 app.get("/", (req, res) => {
-  res.json("hi");
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 app.get("/weather", (req, res) => {
