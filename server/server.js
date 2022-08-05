@@ -3,34 +3,15 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-// V1 Solution
-// const publicPath = path.join(__dirname, "..", "public");
+
 require("dotenv").config();
 
 const app = express();
 
 app.use(cors());
-// V1 Solution
-// app.use(express.static(publicPath));
 
-// V2 Solution
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    req.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
-
-// Not sure if the below is needed for deployment - need further research on the below
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(publicPath, "index.html"));
-// });
-
-// SYNTAX: METHOD => CALL WITH REQUEST & RESPONSE
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
-});
-
+////////////////////////////////////////
+// API CALLS
 app.get("/weather/", (req, res) => {
   console.log(req);
 
@@ -46,5 +27,15 @@ app.get("/weather/", (req, res) => {
       console.error(error);
     });
 });
+
+/////////////////////////////////////
+// PRODUCTION SOLUTION
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 
 app.listen(PORT, () => console.log(`Backend server is running on ${PORT}`));
