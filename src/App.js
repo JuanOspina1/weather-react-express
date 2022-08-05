@@ -22,8 +22,8 @@ function App() {
     if (event.key === "Enter") {
       const options = {
         method: "GET",
-        url: `http://localhost:8000/weather`,
-        data: { location: location },
+        url: `/weather`,
+        params: { location: location },
       };
 
       axios
