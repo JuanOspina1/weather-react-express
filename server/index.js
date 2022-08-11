@@ -10,6 +10,16 @@ const app = express();
 
 app.use(cors());
 
+/////////////////////////////////////
+// PRODUCTION SOLUTION
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
+
 ////////////////////////////////////////
 // API CALLS
 app.get("/weather/", (req, res) => {
@@ -27,15 +37,5 @@ app.get("/weather/", (req, res) => {
       console.error(error);
     });
 });
-
-/////////////////////////////////////
-// PRODUCTION SOLUTION
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    req.sendFile(path.resolve(__dirname, "build", "index.html"));
-  });
-}
 
 app.listen(PORT, () => console.log(`Backend server is running on ${PORT}`));
