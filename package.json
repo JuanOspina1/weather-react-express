@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "heroku-postbuild": "npm install && npm install && npm run build",
+    "heroku-postbuild": "npm install && npm run build",
     "frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
